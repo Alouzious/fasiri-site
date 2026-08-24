@@ -11,10 +11,8 @@ export function Nav() {
         <a href="#how-it-works">How it works</a>
         <a href="#languages">Languages</a>
         <a href="#providers">Providers</a>
-        <a href="https://umarkhemis.github.io/fasiri" target="_blank" rel="noopener noreferrer">Docs</a>
-        <a href="https://github.com/umarkhemis/fasiri" target="_blank" rel="noopener noreferrer">GitHub</a>
+        <a href="https://fasiri.readthedocs.io/en/latest/" target="_blank" rel="noopener noreferrer">Docs</a>
       </nav>
-      <a href="https://fasiri-bu9u.onrender.com/docs" target="_blank" rel="noopener noreferrer" className="btn-secondary nav-api-btn">API Docs</a>
     </header>
   );
 }

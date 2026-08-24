@@ -675,8 +675,6 @@ html, body {
 .dot.red { background: #ef4444; } .dot.yellow { background: #eab308; } .dot.green { background: #22c55e; }
 .code-card-title { color: #94a3b8; font-size: 12px; }
 .code-card-head { justify-content: space-between; }
-.hero-float-badges { position: absolute; right: -10px; bottom: -20px; display: flex; flex-direction: column; gap: 8px; }
-.float-badge { background: white; border: 1px solid var(--border); border-radius: 99px; padding: 6px 14px; font-size: 12px; font-weight: 600; box-shadow: 0 4px 12px rgba(0,0,0,0.08); }
 
 .section h2, .cta-final h2 { font-family: 'Playfair Display', serif; }
 .section-eyebrow { color: var(--gold); }
@@ -712,4 +710,124 @@ html, body {
   .hero h1 { font-size: 32px; }
   .steps-grid { flex-direction: column; }
   .step-chevron { transform: rotate(90deg); margin: 8px 0; }
+}
+
+/* ── Hero entrance animation ── */
+.hero-fade-in {
+  opacity: 0;
+  animation: heroFadeIn 0.7s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+@keyframes heroFadeIn {
+  0%   { opacity: 0; transform: translateY(18px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+
+/* ── Hero language-flow visual ── */
+.flow-visual {
+  position: relative;
+  width: 100%;
+  min-height: 320px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.flow-illustration {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 42%;
+  max-width: 220px;
+  pointer-events: none;
+}
+.flow-illustration img {
+  width: 100%;
+  height: auto;
+  display: block;
+  filter: drop-shadow(0 8px 24px rgba(0, 0, 0, 0.5));
+}
+
+.flow-svg {
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+}
+
+.flow-line {
+  fill: none;
+  stroke: rgba(200, 134, 10, 0.18);
+  stroke-width: 1;
+}
+
+.flow-beam {
+  fill: none;
+  stroke: url(#beamGradient);
+  stroke-width: 1.6;
+  stroke-linecap: round;
+  stroke-dasharray: 40 360;
+  animation: flowBeamTravel 3.2s linear infinite;
+}
+
+@keyframes flowBeamTravel {
+  0%   { stroke-dashoffset: 400; }
+  100% { stroke-dashoffset: 0; }
+}
+
+.flow-word {
+  font-size: 13px;
+  font-family: inherit;
+  font-weight: 600;
+  fill: #fde68a;
+  paint-order: stroke;
+  stroke: #090e17;
+  stroke-width: 3px;
+}
+
+.flow-node {
+  fill: #fde68a;
+}
+
+.flow-node-pulse {
+  fill: none;
+  stroke: rgba(253, 230, 138, 0.5);
+  stroke-width: 1.5;
+  animation: flowNodePulse 2.4s ease-out infinite;
+  transform-origin: 430px 130px;
+}
+
+@keyframes flowNodePulse {
+  0%   { transform: scale(0.6); opacity: 0.9; }
+  100% { transform: scale(2.2); opacity: 0; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-fade-in,
+  .flow-beam,
+  .flow-node-pulse {
+    animation: none !important;
+    opacity: 1 !important;
+    transform: none !important;
+  }
+}
+
+/* ══ Landing v3 — hero only, black background ══ */
+
+.hero {
+  --surface:    #0d1420;
+  --surface-2:  #090e17;
+  --border:     #1e293b;
+  --text-1:     #f1f5f9;
+  --text-2:     #94a3b8;
+  --text-3:     #64748b;
+  background: var(--surface-2);
+}
+
+.hero h1 { color: var(--text-1); }
+.hero h1 em { color: var(--gold); }
+
+.pill-badge {
+  background: rgba(200, 134, 10, 0.12);
+  border-color: var(--gold);
+  color: var(--gold);
 }
