@@ -3,14 +3,21 @@
 import { useState } from "react";
 import { Copy, Check, Volume2, Loader, Share2 } from "lucide-react";
 
+const actionBtn =
+  "inline-flex items-center gap-1 px-2 py-1 rounded-md text-xs text-ink-3 border-none bg-transparent transition-colors duration-150 hover:bg-surface2 hover:text-ink-2";
+
 export function CopyBtn({ text }: { text: string }) {
   const [done, setDone] = useState(false);
   return (
     <button
-      className="action-btn"
-      onClick={() => { navigator.clipboard.writeText(text); setDone(true); setTimeout(() => setDone(false), 2000); }}
+      className={actionBtn}
+      onClick={() => {
+        navigator.clipboard.writeText(text);
+        setDone(true);
+        setTimeout(() => setDone(false), 2000);
+      }}
     >
-      {done ? <Check size={12} color="var(--green)" /> : <Copy size={12} />}
+      {done ? <Check size={12} className="text-brand-green" /> : <Copy size={12} />}
       {done ? "Copied" : "Copy"}
     </button>
   );
@@ -22,7 +29,11 @@ export function TTSBtn({ text, lang }: { text: string; lang: string }) {
     if (busy) return;
     setBusy(true);
     try {
-      const res  = await fetch("/api/tts", { method:"POST", headers:{"Content-Type":"application/json"}, body: JSON.stringify({ text, language: lang }) });
+      const res = await fetch("/api/tts", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ text, language: lang }),
+      });
       const data = await res.json();
       if (data.audio_url) {
         new Audio(data.audio_url).play();
@@ -33,11 +44,17 @@ export function TTSBtn({ text, lang }: { text: string; lang: string }) {
         a.play();
         a.onended = () => URL.revokeObjectURL(url);
       }
-    } finally { setBusy(false); }
+    } finally {
+      setBusy(false);
+    }
   };
   return (
-    <button className="action-btn tts" onClick={play} disabled={busy}>
-      {busy ? <Loader size={12} className="spin" /> : <Volume2 size={12} />}
+    <button
+      className={`${actionBtn} hover:text-brand-green hover:bg-brand-green-light`}
+      onClick={play}
+      disabled={busy}
+    >
+      {busy ? <Loader size={12} className="animate-spin-fast" /> : <Volume2 size={12} />}
       Listen
     </button>
   );
@@ -55,8 +72,8 @@ export function ShareBtn({ text }: { text: string }) {
     }
   };
   return (
-    <button className="action-btn" onClick={share}>
-      {done ? <Check size={12} color="var(--green)" /> : <Share2 size={12} />}
+    <button className={actionBtn} onClick={share}>
+      {done ? <Check size={12} className="text-brand-green" /> : <Share2 size={12} />}
       Share
     </button>
   );

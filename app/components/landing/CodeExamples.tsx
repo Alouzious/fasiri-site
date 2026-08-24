@@ -52,35 +52,43 @@ export function CodeExamples() {
   };
 
   return (
-    <section className="section">
-      <p className="section-eyebrow">Code examples</p>
-      <h2>Works with every stack</h2>
-      <p className="section-sub">
-        Use the Python SDK for the best experience, or call the REST API directly from any language.
-      </p>
-      <div className="code-card code-card-wide">
-        <div className="code-card-head">
-          <div className="code-tabs">
-            {Object.keys(SNIPPETS).map((k) => (
-              <button
-                key={k}
-                className={`code-tab ${tab === k ? "active" : ""}`}
-                onClick={() => setTab(k as keyof typeof SNIPPETS)}
-              >
-                {k}
-              </button>
-            ))}
+    <section className="py-14 px-6 text-center border-t border-line bg-white">
+      <div className="max-w-[1100px] mx-auto">
+        <p className="text-brand-gold font-bold text-xs uppercase tracking-wide mb-2">Code examples</p>
+        <h2 className="font-display text-[28px] font-extrabold mb-3 tracking-tight">Works with every stack</h2>
+        <p className="text-ink-2 max-w-[560px] mx-auto mb-8 leading-relaxed text-sm">
+          Use the Python SDK for the best experience, or call the REST API directly from any language.
+        </p>
+        <div className="bg-[#0f172a] rounded-2xl overflow-hidden max-w-[720px] mx-auto text-left">
+          <div className="flex items-center justify-between px-3.5 py-2.5 bg-[#1e293b]">
+            <div className="flex gap-1">
+              {Object.keys(SNIPPETS).map((k) => (
+                <button
+                  key={k}
+                  className={`border-none rounded-md text-xs px-2.5 py-1 cursor-pointer ${
+                    tab === k ? "bg-[#334155] text-white" : "bg-transparent text-[#94a3b8]"
+                  }`}
+                  onClick={() => setTab(k as keyof typeof SNIPPETS)}
+                >
+                  {k}
+                </button>
+              ))}
+            </div>
+            <button onClick={copy} className="flex items-center gap-1 bg-transparent border-none text-[#94a3b8] text-xs cursor-pointer">
+              {copied ? <Check size={13} /> : <Copy size={13} />}
+              {copied ? "Copied" : "Copy"}
+            </button>
           </div>
-          <button onClick={copy} className="code-copy-btn">
-            {copied ? <Check size={13} /> : <Copy size={13} />}
-            {copied ? "Copied" : "Copy"}
-          </button>
+          <pre className="m-0 p-4 text-[#e2e8f0] text-[13px] leading-relaxed overflow-x-auto whitespace-pre">{SNIPPETS[tab]}</pre>
         </div>
-        <pre className="code-card-body">{SNIPPETS[tab]}</pre>
-      </div>
-      <div className="code-links">
-        <a href="https://fasiri-bu9u.onrender.com/docs" target="_blank" rel="noopener noreferrer">Full API reference</a>
-        <a href="https://pypi.org/project/fasiri/" target="_blank" rel="noopener noreferrer">PyPI package</a>
+        <div className="flex justify-center gap-5 mt-3.5 text-sm">
+          <a href="https://fasiri-bu9u.onrender.com/docs" target="_blank" rel="noopener noreferrer" className="text-brand-green no-underline">
+            Full API reference
+          </a>
+          <a href="https://pypi.org/project/fasiri/" target="_blank" rel="noopener noreferrer" className="text-brand-green no-underline">
+            PyPI package
+          </a>
+        </div>
       </div>
     </section>
   );

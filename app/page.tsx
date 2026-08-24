@@ -9,7 +9,7 @@ import { Footer } from "./components/landing/Footer";
 
 export default function Home() {
   return (
-    <div className="landing-shell">
+    <div className="max-w-full mx-auto">
       <Nav />
       <Hero />
       <HowItWorks />

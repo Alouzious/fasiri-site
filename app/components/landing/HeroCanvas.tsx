@@ -26,19 +26,19 @@ const STREAMS = PATHS.flatMap((d, pathIndex) =>
 
 export function HeroCanvas() {
   return (
-    <div className="flow-visual">
+    <div className="relative w-full min-h-[320px] flex items-center justify-center">
       {/* Swap this for the illustrated figure — image goes in /public,
-          e.g. /public/hero-figure.png — sizing/position is handled by CSS. */}
-      <div className="flow-illustration" aria-hidden="true">
-        <img src="/hero-figure.png" alt="" onError={(e) => (e.currentTarget.style.display = "none")} />
+          e.g. /public/hero-figure.png — sizing/position is handled below. */}
+      <div className="absolute left-0 bottom-0 w-[42%] max-w-[220px] pointer-events-none" aria-hidden="true">
+        <img
+          src="/hero-figure.png"
+          alt=""
+          className="w-full h-auto block drop-shadow-[0_8px_24px_rgba(0,0,0,0.5)]"
+          onError={(e) => (e.currentTarget.style.display = "none")}
+        />
       </div>
 
-      <svg
-        className="flow-svg"
-        viewBox="0 0 460 260"
-        preserveAspectRatio="xMidYMid meet"
-        aria-hidden="true"
-      >
+      <svg className="w-full h-full overflow-visible" viewBox="0 0 460 260" preserveAspectRatio="xMidYMid meet" aria-hidden="true">
         <defs>
           <linearGradient id="beamGradient" x1="0%" y1="0%" x2="100%" y2="0%">
             <stop offset="0%" stopColor="#fbbf24" stopOpacity="0" />
@@ -56,23 +56,27 @@ export function HeroCanvas() {
 
         {/* Static guide lines */}
         {PATHS.map((d, i) => (
-          <path key={`guide-${i}`} d={d} className="flow-line" />
+          <path key={`guide-${i}`} d={d} fill="none" stroke="rgba(200,134,10,0.18)" strokeWidth={1} />
         ))}
 
-        {/* Traveling light beams along each guide line */}
+        {/* Traveling light beams along each guide line — .flow-beam (globals.css) sets stroke: url(#beamGradient) */}
         {PATHS.map((d, i) => (
           <path
             key={`beam-${i}`}
             d={d}
-            className="flow-beam"
+            className="flow-beam animate-flow-beam"
+            fill="none"
+            strokeWidth={1.6}
+            strokeLinecap="round"
+            strokeDasharray="40 360"
             style={{ animationDelay: `${i * 0.6}s` }}
           />
         ))}
 
         {/* Words streaming toward the convergence point */}
         {STREAMS.map((s, i) => (
-          <g key={i} className="flow-word-group">
-            <text className="flow-word" textAnchor="middle" dy="-6">
+          <g key={i}>
+            <text className="flow-word text-[13px] font-semibold" textAnchor="middle" dy="-6">
               {s.word}
               <animateMotion
                 path={s.d}
@@ -83,21 +87,14 @@ export function HeroCanvas() {
                 keyTimes="0;1"
                 calcMode="linear"
               />
-              <animate
-                attributeName="opacity"
-                values="0;1;1;0"
-                keyTimes="0;0.15;0.75;1"
-                dur={`${s.dur}s`}
-                begin={`${s.begin}s`}
-                repeatCount="indefinite"
-              />
+              <animate attributeName="opacity" values="0;1;1;0" keyTimes="0;0.15;0.75;1" dur={`${s.dur}s`} begin={`${s.begin}s`} repeatCount="indefinite" />
             </text>
           </g>
         ))}
 
         {/* Convergence node */}
         <circle cx="430" cy="130" r="5" className="flow-node" filter="url(#softGlow)" />
-        <circle cx="430" cy="130" r="12" className="flow-node-pulse" />
+        <circle cx="430" cy="130" r="12" className="flow-node-pulse animate-flow-pulse" />
       </svg>
     </div>
   );
