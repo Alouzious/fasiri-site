@@ -46,7 +46,7 @@ export function Nav() {
               Try Demo
             </a>
             <a
-              href="https://github.com/umarkhemis/fasiri"
+              href="https://fasiri.readthedocs.io/en/latest/"
               target="_blank"
               rel="noopener noreferrer"
               className="border border-dark-line text-white no-underline text-sm font-semibold px-4 py-2 rounded-lg hover:bg-white/5 transition-colors"

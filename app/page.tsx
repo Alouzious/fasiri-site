@@ -4,7 +4,7 @@ import { HowItWorks } from "./components/landing/HowItWorks";
 import { LanguagesSection } from "./components/landing/LanguagesSection";
 import { ProvidersSection } from "./components/landing/ProvidersSection";
 import { CodeExamples } from "./components/landing/CodeExamples";
-import { CTASection } from "./components/landing/CTASection";
+import { FAQSection } from "./components/landing/CTASection";
 import { Footer } from "./components/landing/Footer";
 
 export default function Home() {
@@ -16,7 +16,7 @@ export default function Home() {
       <LanguagesSection />
       <ProvidersSection />
       <CodeExamples />
-      <CTASection />
+      <FAQSection />
       <Footer />
     </div>
   );
